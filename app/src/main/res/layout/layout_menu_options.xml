@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="100dp"
+    android:weightSum="1">
+
+    <Button
+        android:id="@+id/choose_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.07"
+        android:text="@string/chooseMode" />
+
+    <Button
+        android:id="@+id/manage_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/activity_margintop"
+        android:layout_weight="0.07"
+        android:text="@string/manageProfile" />
+
+    <Button
+        android:id="@+id/in_app_store"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/activity_margintop"
+        android:layout_weight="0.07"
+        android:text="@string/inAppStore" />
+
+    <Button
+        android:id="@+id/game_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/activity_margintop"
+        android:layout_weight="0.07"
+        android:text="@string/gameSettings" />
+
+    <Button
+        android:id="@+id/leadership_board"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/activity_margintop"
+        android:layout_weight="0.07"
+        android:text="@string/leadershipBoard" />
+
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/activity_margintop"
+        android:layout_weight="0.07"
+        android:text="@string/exit" />
+</LinearLayout>
