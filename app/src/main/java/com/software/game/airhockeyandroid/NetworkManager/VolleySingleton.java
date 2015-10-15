@@ -11,17 +11,17 @@ public class VolleySingleton {
     private static VolleySingleton sInstance = null;
     private RequestQueue mRequestQueue = null;
 
-    private VolleySingleton(){
+    private VolleySingleton() {
         mRequestQueue = Volley.newRequestQueue(MyApplication.getAppContext());
     }
 
-    public static VolleySingleton getsInstance(){
-        if(sInstance == null)
+    public static VolleySingleton getsInstance() {
+        if (sInstance == null)
             sInstance = new VolleySingleton();
         return sInstance;
     }
 
-    public RequestQueue getRequestQueue(){
+    public RequestQueue getRequestQueue() {
         return mRequestQueue;
     }
 

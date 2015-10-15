@@ -31,6 +31,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".GameSettings.Settings">
+            <intent-filter>
+                <action android:name="com.software.game.airhockeyandroid.Settings" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

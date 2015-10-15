@@ -24,7 +24,7 @@ import java.util.Map;
 /**
  * Created by Abhishek on 10/14/2015.
  */
-public class CreateProfile extends AppCompatActivity implements View.OnClickListener{
+public class CreateProfile extends AppCompatActivity implements View.OnClickListener {
 
     EditText mNewUsername;
     EditText mNewPassword;
@@ -38,7 +38,7 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         initialize();
     }
 
-    private void initialize(){
+    private void initialize() {
         mNewUsername = (EditText) findViewById(R.id.new_username);
         mNewPassword = (EditText) findViewById(R.id.new_password);
         mCreate = (Button) findViewById(R.id.confirm_new_credentials);
@@ -46,11 +46,11 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
         queue = VolleySingleton.getsInstance().getRequestQueue();
     }
 
-    private void createProfile(String name,String password){
+    private void createProfile(String name, String password) {
         Map<String, String> params = new HashMap<>();
-        if(name.equalsIgnoreCase("") || password.equalsIgnoreCase(""))
+        if (name.equalsIgnoreCase("") || password.equalsIgnoreCase(""))
             Toast.makeText(CreateProfile.this, R.string.incomplete_credentials, Toast.LENGTH_SHORT).show();
-        else{
+        else {
             params.put("username", name);
             params.put("password", password);
             CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.CREATE_PROFILE_URL, params, new Response.Listener<JSONObject>() {
@@ -64,17 +64,18 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(CreateProfile.this, "Wrong information", Toast.LENGTH_SHORT).show();
                 }
             });
-            if(queue != null)
+            if (queue != null)
                 queue.add(request);
         }
     }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
         String name = mNewUsername.getText().toString();
         String password = mNewPassword.getText().toString();
-        if(id == R.id.confirm_new_credentials){
-            createProfile(name,password);
+        if (id == R.id.confirm_new_credentials) {
+            createProfile(name, password);
         }
     }
 }

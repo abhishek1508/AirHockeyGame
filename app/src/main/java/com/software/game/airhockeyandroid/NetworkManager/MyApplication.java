@@ -16,11 +16,11 @@ public class MyApplication extends Application {
         sInstance = this;
     }
 
-    public static MyApplication getsInstance(){
+    public static MyApplication getsInstance() {
         return sInstance;
     }
 
-    public static Context getAppContext(){
+    public static Context getAppContext() {
         return sInstance.getApplicationContext();
     }
 }

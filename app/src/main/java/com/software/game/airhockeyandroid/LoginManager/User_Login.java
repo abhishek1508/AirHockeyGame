@@ -12,6 +12,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.software.game.airhockeyandroid.GameSettings.Settings;
 import com.software.game.airhockeyandroid.NetworkManager.CustomJSONRequest;
 import com.software.game.airhockeyandroid.NetworkManager.VolleySingleton;
 import com.software.game.airhockeyandroid.R;
@@ -22,7 +23,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class User_Login extends AppCompatActivity implements View.OnClickListener{
+public class User_Login extends AppCompatActivity implements View.OnClickListener {
 
     EditText mUsername;
     EditText mPassword;
@@ -51,15 +52,17 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
 
     private void verifyLogin(String name, String password) {
         Map<String, String> params = new HashMap<>();
-        if (name.equalsIgnoreCase("") || password.equalsIgnoreCase(""))
+        if (name.equalsIgnoreCase("/") || password.equalsIgnoreCase(""))
             Toast.makeText(User_Login.this, R.string.incomplete_credentials, Toast.LENGTH_SHORT).show();
-        else {
+        else{
             params.put("username", name);
             params.put("password", password);
             CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.LOGIN_URL, params, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     Toast.makeText(User_Login.this, "Logged in", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(User_Login.this, ChooseFromMenu.class);
+                    startActivity(intent);
                 }
             }, new Response.ErrorListener() {
                 @Override
