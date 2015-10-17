@@ -32,6 +32,13 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".LoginManager.ManageProfile">
+            <intent-filter>
+                <action android:name="com.software.game.airhockeyandroid.ManageProfile" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".GameSettings.Settings">
             <intent-filter>
                 <action android:name="com.software.game.airhockeyandroid.Settings" />

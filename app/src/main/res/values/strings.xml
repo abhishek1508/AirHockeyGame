@@ -16,4 +16,15 @@
     <string name="delete_profile">Delete Profile</string>
     <string name="update_profile">Update Profile</string>
     <string name="apply_changes">Apply Changes</string>
+    <string name="update_username">Update username</string>
+    <string name="update_password">Update password</string>
+    <string name="hint_new_username">New Username</string>
+    <string name="hint_old_username">Old Username</string>
+    <string name="hint_new_password">New Password</string>
+    <string name="hint_old_password">Old Password</string>
+    <string name="username">Username</string>
+    <string name="update">Update</string>
+    <string name="update_both_fields_or_any_one">Enter either both fields or any one</string>
+    <string name="enter_all_info">Enter information in all the fields</string>
+
 </resources>
