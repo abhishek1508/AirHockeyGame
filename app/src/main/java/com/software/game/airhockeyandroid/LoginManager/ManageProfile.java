@@ -119,6 +119,8 @@ public class ManageProfile extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
 
             case R.id.update_username_checkbox:
+                mOldUsername.setText("");
+                mNewUsername.setText("");
                 if (ifChecked) {
                     mUsernameLayout.setVisibility(View.VISIBLE);
                     usernameChecked = true;
@@ -129,6 +131,9 @@ public class ManageProfile extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.update_password_checkbox:
+                mUsername.setText("");
+                mOldPassword.setText("");
+                mNewPassword.setText("");
                 if (ifChecked) {
                     mPasswordLayout.setVisibility(View.VISIBLE);
                     passwordChecked = true;

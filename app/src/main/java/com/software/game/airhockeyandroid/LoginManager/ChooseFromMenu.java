@@ -1,11 +1,13 @@
 package com.software.game.airhockeyandroid.LoginManager;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.software.game.airhockeyandroid.GameSettings.Settings;
 import com.software.game.airhockeyandroid.R;
 
 /**
@@ -41,14 +43,19 @@ public class ChooseFromMenu extends AppCompatActivity implements View.OnClickLis
         mLeadershipBoard.setOnClickListener(this);
         mExit.setOnClickListener(this);
     }
+
+    private void openActivity(Class<?> toActivity){
+        Intent intent = new Intent(ChooseFromMenu.this,toActivity);
+        startActivity(intent);
+    }
+
     @Override
     public void onClick(View v) {
 
         switch(v.getId()){
 
             case R.id.manage_profile:
-                Intent intent = new Intent(ChooseFromMenu.this,ManageProfile.class);
-                startActivity(intent);
+                openActivity(ManageProfile.class);
                 break;
 
             case R.id.choose_mode:
@@ -58,6 +65,7 @@ public class ChooseFromMenu extends AppCompatActivity implements View.OnClickLis
                 break;
 
             case R.id.game_setting:
+                openActivity(Settings.class);
                 break;
 
             case R.id.leadership_board:
