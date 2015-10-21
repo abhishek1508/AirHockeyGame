@@ -34,6 +34,18 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        handle_exit_button();
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.layout_user_login);
+
+        initialize();
+    }
+
+    /*
+    The method gets triggered when the user presses the exit button from the menu.
+     */
+    private void handle_exit_button(){
         if(getIntent().getExtras()!=null) {
             Bundle b = getIntent().getExtras();
             String flag = b.getString("flag");
@@ -42,13 +54,8 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
                 homeIntent.addCategory(Intent.CATEGORY_HOME);
                 homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(homeIntent);
-
             }
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_user_login);
-
-        initialize();
     }
 
     private void initialize() {
@@ -86,8 +93,6 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
         }
 
     }
-
-
 
     @Override
     public void onClick(View v) {
