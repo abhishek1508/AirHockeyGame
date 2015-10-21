@@ -76,25 +76,16 @@ public class ChooseFromMenu extends AppCompatActivity implements View.OnClickLis
             case R.id.exit:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-                builder.setTitle("Confirm");
-                builder.setMessage("Are you sure?");
+                builder.setTitle(R.string.dialog_confirm);
+                builder.setMessage(R.string.dialog_message);
 
-                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(R.string.positive, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        // Do nothing but close the dialog
-                        //android.os.Process.killProcess(android.os.Process.myPid());
-                        //System.exit(0);
-                        //Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-                        //homeIntent.addCategory( Intent.CATEGORY_HOME );
-                        //homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        //startActivity(homeIntent);
-
                         Intent intent = new Intent(ChooseFromMenu.this, User_Login.class);
                         Bundle b = new Bundle();
                         b.putString("flag","Exit");
-                        //b.putInt("flag", 1); //Your id
-                        intent.putExtras(b); //Put your id to your next Intent
+                        intent.putExtras(b);
                         startActivity(intent);
                         finish();
                         dialog.dismiss();
@@ -102,7 +93,7 @@ public class ChooseFromMenu extends AppCompatActivity implements View.OnClickLis
 
                 });
 
-                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(R.string.negative, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
