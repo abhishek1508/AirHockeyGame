@@ -10,7 +10,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.software.game.airhockeyandroid.NetworkManager.CustomJSONRequest;
+import com.software.game.airhockeyandroid.NetworkManager.VolleySingleton;
 import com.software.game.airhockeyandroid.R;
+import com.software.game.airhockeyandroid.Utilities.Constants;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +40,7 @@ public class ManageProfile extends AppCompatActivity implements View.OnClickList
     Button mUpdate;
     LinearLayout mUsernameLayout;
     LinearLayout mPasswordLayout;
-
+    private RequestQueue queue = null;
     private boolean usernameChecked = false;
     private boolean passwordChecked = false;
 
@@ -44,6 +53,7 @@ public class ManageProfile extends AppCompatActivity implements View.OnClickList
     }
 
     private void initialize() {
+        queue = VolleySingleton.getsInstance().getRequestQueue();
         mDeleteProfile = (CardView) findViewById(R.id.delete_profile_card);
         mCheckUsername = (CheckBox) findViewById(R.id.update_username_checkbox);
         mCheckPassword = (CheckBox) findViewById(R.id.update_password_checkbox);
@@ -69,6 +79,7 @@ public class ManageProfile extends AppCompatActivity implements View.OnClickList
                 verifyInformationEntered();
             }
         });
+
     }
 
     private void verifyInformationEntered() {
@@ -105,11 +116,37 @@ public class ManageProfile extends AppCompatActivity implements View.OnClickList
             Toast.makeText(ManageProfile.this, R.string.update_both_fields_or_any_one, Toast.LENGTH_SHORT).show();
     }
 
-    private void deleteProfile() {
+    private void deleteProfile(Map<String,String> params) {
+        CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.DELETE_PROFILE_URL, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Toast.makeText(ManageProfile.this, "Profile Created", Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(ManageProfile.this, "Wrong information", Toast.LENGTH_SHORT).show();
+            }
+        });
+        if (queue != null)
+            queue.add(request);
 
     }
 
     private void updateProfile(Map<String,String> params) {
+        CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.UPDATE_PROFILE_URL, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Toast.makeText(ManageProfile.this, "Profile Created", Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(ManageProfile.this, "Wrong information", Toast.LENGTH_SHORT).show();
+            }
+        });
+        if (queue != null)
+            queue.add(request);
 
     }
 

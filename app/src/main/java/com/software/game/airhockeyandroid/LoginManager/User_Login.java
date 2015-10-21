@@ -34,6 +34,17 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(getIntent().getExtras()!=null) {
+            Bundle b = getIntent().getExtras();
+            String flag = b.getString("flag");
+            if ((flag!=null) && flag.equalsIgnoreCase("Exit")) {
+                Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+                homeIntent.addCategory(Intent.CATEGORY_HOME);
+                homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(homeIntent);
+
+            }
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_user_login);
 
@@ -75,6 +86,8 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
         }
 
     }
+
+
 
     @Override
     public void onClick(View v) {

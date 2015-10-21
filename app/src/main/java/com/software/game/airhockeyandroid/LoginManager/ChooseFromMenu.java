@@ -85,11 +85,19 @@ public class ChooseFromMenu extends AppCompatActivity implements View.OnClickLis
                         // Do nothing but close the dialog
                         //android.os.Process.killProcess(android.os.Process.myPid());
                         //System.exit(0);
-                        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-                        homeIntent.addCategory( Intent.CATEGORY_HOME );
-                        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(homeIntent);
-                        //dialog.dismiss();
+                        //Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+                        //homeIntent.addCategory( Intent.CATEGORY_HOME );
+                        //homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        //startActivity(homeIntent);
+
+                        Intent intent = new Intent(ChooseFromMenu.this, User_Login.class);
+                        Bundle b = new Bundle();
+                        b.putString("flag","Exit");
+                        //b.putInt("flag", 1); //Your id
+                        intent.putExtras(b); //Put your id to your next Intent
+                        startActivity(intent);
+                        finish();
+                        dialog.dismiss();
                     }
 
                 });
