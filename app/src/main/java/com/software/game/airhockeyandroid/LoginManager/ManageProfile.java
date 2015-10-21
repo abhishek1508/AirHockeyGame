@@ -1,5 +1,8 @@
 package com.software.game.airhockeyandroid.LoginManager;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -14,6 +17,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.software.game.airhockeyandroid.Entities.Player;
 import com.software.game.airhockeyandroid.NetworkManager.CustomJSONRequest;
 import com.software.game.airhockeyandroid.NetworkManager.VolleySingleton;
 import com.software.game.airhockeyandroid.R;
@@ -70,7 +74,11 @@ public class ManageProfile extends AppCompatActivity implements View.OnClickList
         mDeleteProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ManageProfile.this, R.string.update_both_fields_or_any_one, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ManageProfile.this, R.string.update_both_fields_or_any_one, Toast.LENGTH_SHORT).show();
+                Player player= Player.getInstance();
+                Map<String,String> map= new HashMap<String, String>();
+                map.put("username", player.getUsername());
+                deleteProfile(map);
             }
         });
         mUpdate.setOnClickListener(new View.OnClickListener() {
@@ -116,20 +124,57 @@ public class ManageProfile extends AppCompatActivity implements View.OnClickList
             Toast.makeText(ManageProfile.this, R.string.update_both_fields_or_any_one, Toast.LENGTH_SHORT).show();
     }
 
-    private void deleteProfile(Map<String,String> params) {
-        CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.DELETE_PROFILE_URL, params, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Toast.makeText(ManageProfile.this, "Profile Created", Toast.LENGTH_SHORT).show();
+    private void deleteProfile(final Map<String,String> params) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Confirm");
+        builder.setMessage("Are you sure?");
+
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing but close the dialog
+                //android.os.Process.killProcess(android.os.Process.myPid());
+                //System.exit(0);
+                //Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+                //homeIntent.addCategory( Intent.CATEGORY_HOME );
+                //homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                //startActivity(homeIntent);
+                CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.DELETE_PROFILE_URL,params, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(ManageProfile.this, "Profile Deleted", Toast.LENGTH_SHORT).show();
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(ManageProfile.this, "Wrong information", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                if (queue != null)
+                    queue.add(request);
+                Intent intent = new Intent(ManageProfile.this, User_Login.class);
+
+                startActivity(intent);
+                finish();
+                dialog.dismiss();
             }
-        }, new Response.ErrorListener() {
+
+        });
+
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(ManageProfile.this, "Wrong information", Toast.LENGTH_SHORT).show();
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing
+                dialog.dismiss();
             }
         });
-        if (queue != null)
-            queue.add(request);
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
 
     }
 
@@ -137,7 +182,7 @@ public class ManageProfile extends AppCompatActivity implements View.OnClickList
         CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.UPDATE_PROFILE_URL, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Toast.makeText(ManageProfile.this, "Profile Created", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ManageProfile.this, "Profile Deleted", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override

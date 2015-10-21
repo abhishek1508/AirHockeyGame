@@ -12,14 +12,17 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.software.game.airhockeyandroid.Entities.Player;
 import com.software.game.airhockeyandroid.GameSettings.Settings;
 import com.software.game.airhockeyandroid.NetworkManager.CustomJSONRequest;
 import com.software.game.airhockeyandroid.NetworkManager.VolleySingleton;
 import com.software.game.airhockeyandroid.R;
 import com.software.game.airhockeyandroid.Utilities.Constants;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,6 +65,7 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
     }
 
     private void verifyLogin(String name, String password) {
+
         Map<String, String> params = new HashMap<>();
         if (name.equalsIgnoreCase("/") || password.equalsIgnoreCase(""))
             Toast.makeText(User_Login.this, R.string.incomplete_credentials, Toast.LENGTH_SHORT).show();
@@ -71,6 +75,18 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
             CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.LOGIN_URL, params, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
+
+
+                    try{
+                        String username=response.getJSONArray("user_details").getJSONObject(0).getString("username");
+                        //int coins=response.getJSONArray("user_details").getJSONObject(0).getInt("coins");
+                        //int games_lost=response.getJSONArray("user_details").getJSONObject(0).getInt("games_lost");
+                        //int games_won=response.getJSONArray("user_details").getJSONObject(0).getInt("games_won");
+                        //int rank = response.getJSONArray("user_details").getJSONObject(0).getInt("rank");
+                        Player player= Player.getInstance(username,0,0,0,0);
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
                     Toast.makeText(User_Login.this, "Logged in", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(User_Login.this, ChooseFromMenu.class);
                     startActivity(intent);
