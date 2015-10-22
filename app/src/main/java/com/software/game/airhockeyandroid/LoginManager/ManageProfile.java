@@ -76,7 +76,7 @@ public class ManageProfile extends AppCompatActivity implements View.OnClickList
             public void onClick(View v) {
                 //Toast.makeText(ManageProfile.this, R.string.update_both_fields_or_any_one, Toast.LENGTH_SHORT).show();
                 Player player= Player.getInstance();
-                Map<String,String> map= new HashMap<String, String>();
+                Map<String,String> map= new HashMap<>();
                 map.put("username", player.getUsername());
                 deleteProfile(map);
             }
@@ -133,7 +133,7 @@ public class ManageProfile extends AppCompatActivity implements View.OnClickList
         builder.setPositiveButton(R.string.positive, new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
-                CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.DELETE_PROFILE_URL,params, new Response.Listener<JSONObject>() {
+                CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.DELETE_PROFILE_URL, params, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Toast.makeText(ManageProfile.this, R.string.profile_deleted, Toast.LENGTH_SHORT).show();

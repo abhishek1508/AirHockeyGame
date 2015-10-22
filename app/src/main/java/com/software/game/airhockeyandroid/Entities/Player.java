@@ -13,12 +13,12 @@ public class Player {
 
     private static Player player = null;
 
-    private Player(){
+    private Player() {
 
     }
 
-    public static Player getInstance(String username, int coins, int rank, int games_won, int games_lost){
-        if(player ==null){
+    public static Player getInstance(String username, int coins, int rank, int games_won, int games_lost) {
+        if (player == null) {
             player = new Player();
             player.setUsername(username);
             player.setGames_won(games_won);
@@ -26,15 +26,15 @@ public class Player {
             player.setPoints(coins);
             player.setRank(rank);
         }
-
-
         return player;
     }
-    public static Player getInstance(){
-         //player= new Player();
-        return player;
 
-        }
+    public static Player getInstance() {
+        if (player == null)
+            player = new Player();
+        return player;
+    }
+
     public static String getUsername() {
         return Player.username;
     }
