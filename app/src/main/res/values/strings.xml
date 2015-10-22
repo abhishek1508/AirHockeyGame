@@ -30,5 +30,8 @@
     <string name="dialog_message">Are you sure?</string>
     <string name="positive">YES</string>
     <string name="negative">NO</string>
+    <string name="profile_updated">Profile Updated</string>
+    <string name="profile_deleted">Profile Deleted</string>
+    <string name="wrong_info">Wrong Information</string>
 
 </resources>

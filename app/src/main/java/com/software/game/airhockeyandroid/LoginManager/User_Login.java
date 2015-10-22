@@ -82,8 +82,6 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
             CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.LOGIN_URL, params, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-
-
                     try{
                         String username=response.getJSONArray("user_details").getJSONObject(0).getString("username");
                         //int coins=response.getJSONArray("user_details").getJSONObject(0).getInt("coins");
@@ -94,14 +92,13 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
                     }catch(Exception e){
                         e.printStackTrace();
                     }
-                    Toast.makeText(User_Login.this, "Logged in", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(User_Login.this, ChooseFromMenu.class);
                     startActivity(intent);
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(User_Login.this, "Wrong information", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(User_Login.this, R.string.wrong_info, Toast.LENGTH_SHORT).show();
                 }
             });
             if (queue != null)
