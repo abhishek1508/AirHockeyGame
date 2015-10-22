@@ -45,6 +45,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".InAppStore.InAppPurchase">
+            <intent-filter>
+                <action android:name="com.software.game.airhockeyandroid.InAppPurchase" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

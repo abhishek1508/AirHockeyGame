@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.content.DialogInterface;
 
 import com.software.game.airhockeyandroid.GameSettings.Settings;
+import com.software.game.airhockeyandroid.InAppStore.InAppPurchase;
 import com.software.game.airhockeyandroid.R;
 
 /**
@@ -64,6 +65,7 @@ public class ChooseFromMenu extends AppCompatActivity implements View.OnClickLis
                 break;
 
             case R.id.in_app_store:
+                openActivity(InAppPurchase.class);
                 break;
 
             case R.id.game_setting:
