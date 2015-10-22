@@ -31,7 +31,7 @@ public class Player {
         return player;
     }
     public static Player getInstance(){
-         player= new Player();
+         //player= new Player();
         return player;
 
         }
