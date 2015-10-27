@@ -98,7 +98,7 @@ public class ManageProfile extends AppCompatActivity implements View.OnClickList
             else{
                 params.put("oldUsername",mOldUsername.getText().toString());
                 params.put("newUsername",mNewUsername.getText().toString());
-                params.put("username",mUsername.getText().toString());
+                params.put("username1",mUsername.getText().toString());
                 params.put("oldPassword",mOldPassword.getText().toString());
                 params.put("newPassword",mNewPassword.getText().toString());
                 updateProfile(params);
