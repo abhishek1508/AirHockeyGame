@@ -5,8 +5,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.software.game.airhockeyandroid.Entities.Player;
+import com.software.game.airhockeyandroid.NetworkManager.CustomJSONRequest;
 import com.software.game.airhockeyandroid.R;
+import com.software.game.airhockeyandroid.Utilities.Constants;
+
+import org.json.JSONObject;
 
 /**
  * Created by neela on 10/21/2015.
@@ -18,11 +26,14 @@ public class InAppPurchase extends AppCompatActivity implements View.OnClickList
     Button mPaddle;
     Button mPuck;
     Button mHole;
+    TextView mBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_in_app_purchase);
+        initialize();
+
     }
 
     private void initialize() {
@@ -35,9 +46,16 @@ public class InAppPurchase extends AppCompatActivity implements View.OnClickList
         mPaddle.setOnClickListener(this);
         mHole.setOnClickListener(this);
         mPuck.setOnClickListener(this);
+        mBlackHoleLayout.setVisibility(View.GONE);
+        mMultiPuckLayout.setVisibility(View.GONE);
+        mPaddlePopLayout.setVisibility(View.GONE);
+        mBalance= (TextView) findViewById(R.id.balance_text);
+
+        mBalance.setText(Integer.toString(Player.getInstance().getPoints()));
+
     }
 
-    @Override
+        @Override
     public void onClick(View v) {
         switch (v.getId()) {
 
