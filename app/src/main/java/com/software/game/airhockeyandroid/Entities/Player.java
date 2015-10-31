@@ -35,43 +35,43 @@ public class Player {
         return player;
     }
 
-    public static String getUsername() {
+    public String getUsername() {
         return Player.username;
     }
 
-    public static void setUsername(String username) {
+    public void setUsername(String username) {
         Player.username = username;
     }
 
-    public static int getRank() {
+    public int getRank() {
         return Player.rank;
     }
 
-    public static void setRank(int rank) {
+    public void setRank(int rank) {
         Player.rank = rank;
     }
 
-    public static int getPoints() {
+    public int getPoints() {
         return Player.points;
     }
 
-    public static void setPoints(int points) {
+    public void setPoints(int points) {
         Player.points = points;
     }
 
-    public static int getGames_won() {
+    public int getGames_won() {
         return Player.games_won;
     }
 
-    public static void setGames_won(int games_won) {
+    public void setGames_won(int games_won) {
         Player.games_won = games_won;
     }
 
-    public static int getGames_lost() {
+    public int getGames_lost() {
         return Player.games_lost;
     }
 
-    public static void setGames_lost(int games_lost) {
+    public void setGames_lost(int games_lost) {
         Player.games_lost = games_lost;
     }
 }

@@ -16,6 +16,7 @@ import com.software.game.airhockeyandroid.Entities.Player;
 import com.software.game.airhockeyandroid.GameSettings.Settings;
 import com.software.game.airhockeyandroid.NetworkManager.CustomJSONRequest;
 import com.software.game.airhockeyandroid.NetworkManager.VolleySingleton;
+import com.software.game.airhockeyandroid.NetworkRequest.JSONManager;
 import com.software.game.airhockeyandroid.R;
 import com.software.game.airhockeyandroid.Utilities.Constants;
 
@@ -83,17 +84,17 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
                 @Override
                 public void onResponse(JSONObject response) {
                     try{
-                        String username=response.getJSONArray("user_details").getJSONObject(0).getString("username");
-                        //int coins=response.getJSONArray("user_details").getJSONObject(0).getInt("coins");
-                        //int games_lost=response.getJSONArray("user_details").getJSONObject(0).getInt("games_lost");
-                        //int games_won=response.getJSONArray("user_details").getJSONObject(0).getInt("games_won");
-                        //int rank = response.getJSONArray("user_details").getJSONObject(0).getInt("rank");
-                        Player player= Player.getInstance(username,0,0,0,0);
+                        if(response.getInt("success") == 1){
+                            JSONManager manager = new JSONManager();
+                            manager.parseJSON(response);
+                            Intent intent = new Intent(User_Login.this, ChooseFromMenu.class);
+                            startActivity(intent);
+                        }
+                        else
+                            Toast.makeText(User_Login.this,R.string.invalid_credentials,Toast.LENGTH_SHORT).show();
                     }catch(Exception e){
                         e.printStackTrace();
                     }
-                    Intent intent = new Intent(User_Login.this, ChooseFromMenu.class);
-                    startActivity(intent);
                 }
             }, new Response.ErrorListener() {
                 @Override

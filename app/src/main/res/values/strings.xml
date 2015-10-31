@@ -13,6 +13,7 @@
     <string name="gameSettings">Game Settings</string>
     <string name="leadershipBoard">Leadership Board</string>
     <string name="exit">Exit</string>
+    <string name="invalid_credentials">Invalid credentials</string>
     <string name="delete_profile">Delete Profile</string>
     <string name="update_profile">Update Profile</string>
     <string name="apply_changes">Apply Changes</string>
