@@ -7,6 +7,6 @@ public class Constants {
 
     public static final String LOGIN_URL = "http://65.111.166.234/phpFiles/verifyLogin.php";
     public static final String CREATE_PROFILE_URL = "http://65.111.166.234/phpFiles/createProfile.php";
-    public static final String DELETE_PROFILE_URL = "http://androidgamedeveloper.site11.com/connection/deleteProfile.php";
-    public static final String UPDATE_PROFILE_URL = "http://androidgamedeveloper.site11.com/connection/updateProfile.php";
+    public static final String DELETE_PROFILE_URL = "http://65.111.166.234/phpFiles/deleteProfile.php";
+    public static final String UPDATE_PROFILE_URL = "http://65.111.166.234/phpFiles/manageProfile.php";
 }

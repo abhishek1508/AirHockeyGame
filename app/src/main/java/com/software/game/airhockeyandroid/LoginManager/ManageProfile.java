@@ -171,7 +171,7 @@ public class ManageProfile extends AppCompatActivity implements View.OnClickList
     }
 
     private void updateProfile(Map<String,String> params) {
-        CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.DELETE_PROFILE_URL, params, new Response.Listener<JSONObject>() {
+        CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.UPDATE_PROFILE_URL, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Toast.makeText(ManageProfile.this, R.string.profile_updated, Toast.LENGTH_SHORT).show();
