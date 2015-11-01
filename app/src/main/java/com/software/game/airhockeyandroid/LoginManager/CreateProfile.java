@@ -1,5 +1,6 @@
 package com.software.game.airhockeyandroid.LoginManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,9 +14,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.software.game.airhockeyandroid.NetworkManager.CustomJSONRequest;
 import com.software.game.airhockeyandroid.NetworkManager.VolleySingleton;
+import com.software.game.airhockeyandroid.NetworkRequest.JSONManager;
 import com.software.game.airhockeyandroid.R;
 import com.software.game.airhockeyandroid.Utilities.Constants;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -56,12 +59,23 @@ public class CreateProfile extends AppCompatActivity implements View.OnClickList
             CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.CREATE_PROFILE_URL, params, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    Toast.makeText(CreateProfile.this, "Profile Created", Toast.LENGTH_SHORT).show();
+                    try {
+                        if(response.getInt("success") == 1){
+                            Toast.makeText(CreateProfile.this, R.string.profile_created, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(CreateProfile.this,User_Login.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+                        else
+                            Toast.makeText(CreateProfile.this, R.string.profile_already_exist, Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(CreateProfile.this, "Wrong information", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateProfile.this, R.string.wrong_info, Toast.LENGTH_SHORT).show();
                 }
             });
             if (queue != null)
