@@ -27,6 +27,7 @@
     <string name="update">Update</string>
     <string name="profile_created">Profile Created</string>
     <string name="profile_already_exist">User already exists</string>
+    <string name="no_power_up">No powerup found</string>
     <string name="update_both_fields_or_any_one">Enter either both fields or any one</string>
     <string name="enter_all_info">Enter information in all the fields</string>
     <string name="dialog_confirm">Confirm</string>

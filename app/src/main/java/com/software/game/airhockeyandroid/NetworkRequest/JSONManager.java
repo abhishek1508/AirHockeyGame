@@ -33,7 +33,6 @@ public class JSONManager {
             String type = array.getJSONObject(0).getString("type");
             PowerUp power = new PowerUp(count, type);
             Player.powerUps.add(power);
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
