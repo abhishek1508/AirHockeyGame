@@ -52,6 +52,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".LeadershipBoard.Leadership">
+        <intent-filter>
+            <action android:name="com.software.game.airhockeyandroid.Leadership" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+        </activity>
     </application>
 
 </manifest>

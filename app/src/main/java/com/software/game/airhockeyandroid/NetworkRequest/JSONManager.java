@@ -1,6 +1,7 @@
 package com.software.game.airhockeyandroid.NetworkRequest;
 
 import com.software.game.airhockeyandroid.Entities.Player;
+import com.software.game.airhockeyandroid.Entities.PowerUp;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +21,19 @@ public class JSONManager {
             int games_won = array.getJSONObject(0).getInt("games_won");
             int rank = array.getJSONObject(0).getInt("rank");
             Player player = Player.getInstance(username,coins,rank,games_won,games_lost);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    public void parsePowerUps(JSONObject object){
+        try {
+            JSONArray array = object.getJSONArray("powerUp");
+            String username=array.getJSONObject(0).getString("username");
+            int count=array.getJSONObject(0).getInt("count");
+            String type = array.getJSONObject(0).getString("type");
+            PowerUp power = new PowerUp(count, type);
+            Player.powerUps.add(power);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

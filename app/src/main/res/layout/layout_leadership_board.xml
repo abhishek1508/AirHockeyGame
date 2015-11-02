@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="50dp"
+    android:weightSum="1">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/leader_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="Your Username:"
+            android:textColor="#009688"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/user_nam_text"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/leader_name_text"
+            android:text="neelam"
+            android:textColor="#009688"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/leader_points_text"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="Your Coins:"
+            android:textColor="#009688"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/lead_point_user"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/leader_points_text"
+            android:text="1000"
+            android:textColor="#009688"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <HorizontalScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <TableLayout
+
+                    android:id="@+id/leader_table"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+
+                </TableLayout>
+
+            </HorizontalScrollView>
+
+        </ScrollView>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

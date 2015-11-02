@@ -1,5 +1,7 @@
 package com.software.game.airhockeyandroid.Entities;
 
+import java.util.ArrayList;
+
 /**
  * Created by shardendu on 10/21/15.
  */
@@ -10,7 +12,7 @@ public class Player {
     private static int rank;
     private static int games_won;
     private static int games_lost;
-
+    public static ArrayList<PowerUp> powerUps;
     private static Player player = null;
 
     private Player() {
@@ -19,12 +21,16 @@ public class Player {
 
     public static Player getInstance(String username, int coins, int rank, int games_won, int games_lost) {
         if (player == null) {
+
             player = new Player();
+        }else{
+
             player.setUsername(username);
             player.setGames_won(games_won);
             player.setGames_lost(games_lost);
             player.setPoints(coins);
             player.setRank(rank);
+            powerUps = new ArrayList<>();
         }
         return player;
     }

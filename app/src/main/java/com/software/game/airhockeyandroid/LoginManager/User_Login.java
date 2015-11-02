@@ -13,6 +13,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.software.game.airhockeyandroid.Entities.Player;
+import com.software.game.airhockeyandroid.Entities.PowerUp;
 import com.software.game.airhockeyandroid.GameSettings.Settings;
 import com.software.game.airhockeyandroid.NetworkManager.CustomJSONRequest;
 import com.software.game.airhockeyandroid.NetworkManager.VolleySingleton;
@@ -33,7 +34,9 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
     EditText mPassword;
     Button mLogin;
     Button mCreateProfile;
+    boolean isComplete= false;
     private RequestQueue queue = null;
+    Player player=null;
     private String mDebug = User_Login.class.getSimpleName();
 
     @Override
@@ -70,6 +73,7 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
         mLogin.setOnClickListener(this);
         mCreateProfile.setOnClickListener(this);
         queue = VolleySingleton.getsInstance().getRequestQueue();
+        player = Player.getInstance();
     }
 
     private void verifyLogin(String name, String password) {
@@ -87,8 +91,6 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
                         if(response.getInt("success") == 1){
                             JSONManager manager = new JSONManager();
                             manager.parseJSON(response);
-                            Intent intent = new Intent(User_Login.this, ChooseFromMenu.class);
-                            startActivity(intent);
                         }
                         else
                             Toast.makeText(User_Login.this,R.string.invalid_credentials,Toast.LENGTH_SHORT).show();
@@ -103,9 +105,44 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
                 }
             });
             if (queue != null)
+
                 queue.add(request);
+
+
         }
 
+
+    }
+
+    public void getPowerUps(String username){
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("username", username);
+
+        CustomJSONRequest poweruprequest = new CustomJSONRequest(Request.Method.POST, Constants.GET_POWERUPS, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try{
+                    if(response.getInt("success") == 1){
+
+                        JSONManager parse= new JSONManager();
+                        parse.parsePowerUps(response);
+                        Intent intent = new Intent(User_Login.this, ChooseFromMenu.class);
+                        startActivity(intent);
+                    }
+                    else
+                        Toast.makeText(User_Login.this,"no powerup found",Toast.LENGTH_SHORT).show();
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(User_Login.this, R.string.wrong_info, Toast.LENGTH_SHORT).show();
+            }
+        });
+        if (queue != null)
+            queue.add(poweruprequest);
     }
 
     @Override
@@ -115,6 +152,10 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
         String password = mPassword.getText().toString();
         if (id == R.id.login_button) {
             verifyLogin(name, password);
+
+            while(player==null);
+            getPowerUps(name);
+
         } else if (id == R.id.create_profile_button) {
             Intent intent = new Intent(User_Login.this, CreateProfile.class);
             startActivity(intent);
