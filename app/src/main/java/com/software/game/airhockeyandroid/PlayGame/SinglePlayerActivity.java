@@ -158,11 +158,9 @@ public class SinglePlayerActivity extends AppCompatActivity {
     long pausedGameEndTime;
     long pausedTime;
     float[] relBatSize = new float[]{1.0f, 0.8f, 0.6f};
-    float[] relBatSize2 = new float[]{2.0f, 1f, 0.8f};
     float[] relGoalSize = new float[]{1.0f, 0.9f, 1.3f};
     float[] relBallSize = new float[]{1.0f, 0.9f, 0.8f};
     float[] relVel = new float[]{0.6f, 0.8f, 1.0f};
-    float[] relVelPro = new float[]{0.6f, 0.8f, 1.0f};
     int scoreBottom;
     int scoreTop;
     int screenH;
