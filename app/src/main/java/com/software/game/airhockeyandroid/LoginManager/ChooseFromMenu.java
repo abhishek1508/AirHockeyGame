@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import com.software.game.airhockeyandroid.GameSettings.Settings;
 import com.software.game.airhockeyandroid.InAppStore.InAppPurchase;
 import com.software.game.airhockeyandroid.LeadershipBoard.Leadership;
+import com.software.game.airhockeyandroid.PlayGame.ChooseFromPlayerMode;
 import com.software.game.airhockeyandroid.R;
 
 /**
@@ -63,6 +64,7 @@ public class ChooseFromMenu extends AppCompatActivity implements View.OnClickLis
                 break;
 
             case R.id.choose_mode:
+                openActivity(ChooseFromPlayerMode.class);
                 break;
 
             case R.id.in_app_store:

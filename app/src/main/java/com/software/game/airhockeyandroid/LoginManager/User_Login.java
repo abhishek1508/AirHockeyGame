@@ -13,6 +13,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.software.game.airhockeyandroid.Entities.Player;
+import com.software.game.airhockeyandroid.GameSettings.Settings;
 import com.software.game.airhockeyandroid.NetworkManager.CustomJSONRequest;
 import com.software.game.airhockeyandroid.NetworkManager.VolleySingleton;
 import com.software.game.airhockeyandroid.NetworkRequest.JSONManager;
@@ -34,6 +35,7 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
     private RequestQueue queue = null;
     Player player = null;
     private String mDebug = User_Login.class.getSimpleName();
+    Settings mVolumeSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,8 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
         mCreateProfile.setOnClickListener(this);
         queue = VolleySingleton.getsInstance().getRequestQueue();
         player = Player.getInstance();
+        mVolumeSettings = new Settings();
+        mVolumeSettings.setVolumeControl();
     }
 
     private void verifyLogin(String name, String password) {

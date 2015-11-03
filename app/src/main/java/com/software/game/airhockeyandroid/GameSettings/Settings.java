@@ -18,7 +18,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     ImageButton mVibrationControl;
     private AudioManager manager;
     private int mVolumeMode;
-    private int mVibrationMode;
+    public static float mGameVolume;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +37,22 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         mVibrationControl.setOnClickListener(this);
     }
 
+    public void setVolumeControl(){
+        if (mVolumeMode == AudioManager.RINGER_MODE_NORMAL) {
+            mGameVolume= 0.99f;
+        } else if (mVolumeMode == AudioManager.RINGER_MODE_SILENT) {
+            mGameVolume = 0.0f;
+        } else if (mVolumeMode == AudioManager.RINGER_MODE_VIBRATE) {
+            mGameVolume = 0.0f;
+        }
+    }
     private void setInitialVolume() {
         if (mVolumeMode == AudioManager.RINGER_MODE_NORMAL) {
             mVolumeControl.setImageResource(R.mipmap.ic_volume_on);
         } else if (mVolumeMode == AudioManager.RINGER_MODE_SILENT) {
             mVolumeControl.setImageResource(R.mipmap.ic_volume_off);
-
         } else if (mVolumeMode == AudioManager.RINGER_MODE_VIBRATE) {
             mVolumeControl.setImageResource(R.mipmap.ic_volume_off);
-
         }
     }
 
@@ -54,14 +61,17 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
             manager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
             mVolumeMode = AudioManager.RINGER_MODE_SILENT;
             mVolumeControl.setImageResource(R.mipmap.ic_volume_off);
+            mGameVolume = 0.0f;
         } else if (mVolumeMode == AudioManager.RINGER_MODE_SILENT) {
             manager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
             mVolumeMode = AudioManager.RINGER_MODE_NORMAL;
             mVolumeControl.setImageResource(R.mipmap.ic_volume_on);
+            mGameVolume = 0.99f;
         } else if (mVolumeMode == AudioManager.RINGER_MODE_VIBRATE) {
             manager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
             mVolumeMode = AudioManager.RINGER_MODE_NORMAL;
             mVolumeControl.setImageResource(R.mipmap.ic_volume_on);
+            mGameVolume = 0.99f;
         }
     }
 
@@ -70,14 +80,17 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
             manager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
             mVolumeMode = AudioManager.RINGER_MODE_VIBRATE;
             mVolumeControl.setImageResource(R.mipmap.ic_volume_off);
+            mGameVolume = 0.0f;
         } else if (mVolumeMode == AudioManager.RINGER_MODE_VIBRATE) {
             manager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
             mVolumeMode = AudioManager.RINGER_MODE_NORMAL;
             mVolumeControl.setImageResource(R.mipmap.ic_volume_on);
+            mGameVolume = 0.99f;
         } else if (mVolumeMode == AudioManager.RINGER_MODE_SILENT) {
             manager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
             mVolumeMode = AudioManager.RINGER_MODE_VIBRATE;
             mVolumeControl.setImageResource(R.mipmap.ic_volume_off);
+            mGameVolume = 0.0f;
         }
     }
 
