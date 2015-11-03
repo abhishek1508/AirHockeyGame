@@ -9,6 +9,7 @@
     android:weightSum="1">
 
     <RelativeLayout
+        android:id="@+id/user_data"
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
@@ -23,7 +24,7 @@
 
         <TextView
             android:id="@+id/user_nam_text"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/leader_name_text"
@@ -35,6 +36,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/all_users_data"
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
@@ -58,35 +60,13 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
-
-            <HorizontalScrollView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:focusable="true"
-                android:focusableInTouchMode="true">
-
-                <TableLayout
-
-                    android:id="@+id/leader_table"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true">
-
-
-                </TableLayout>
-
-            </HorizontalScrollView>
-
-        </ScrollView>
-
 
     </RelativeLayout>
+
+    <TableLayout
+        android:id="@+id/leader_table"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 
 </LinearLayout>
