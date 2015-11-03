@@ -28,11 +28,13 @@ public class JSONManager {
     public void parsePowerUps(JSONObject object){
         try {
             JSONArray array = object.getJSONArray("powerUp");
-            String username=array.getJSONObject(0).getString("username");
-            int count=array.getJSONObject(0).getInt("count");
-            String type = array.getJSONObject(0).getString("type");
-            PowerUp power = new PowerUp(count, type);
-            Player.powerUps.add(power);
+            for(int i=0; i< array.length();i++) {
+                String username = array.getJSONObject(i).getString("username");
+                int count = array.getJSONObject(i).getInt("count");
+                String type = array.getJSONObject(i).getString("type");
+                PowerUp power = new PowerUp(count, type);
+                Player.powerUps.add(power);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

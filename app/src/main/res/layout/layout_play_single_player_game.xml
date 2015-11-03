@@ -10,14 +10,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="17dp"
-        android:text="mallet Size" />
+        android:text="mallet Size"
+        android:visibility="invisible"/>
 
     <Button
         android:id="@+id/changeGoalSize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="gola size"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"/>
 
     <Button
         android:id="@+id/multiPuck"
@@ -26,7 +28,8 @@
         android:text="Multi Puck"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/changeGoalSize"
-        android:layout_toEndOf="@+id/changeGoalSize"/>
+        android:layout_toEndOf="@+id/changeGoalSize"
+        android:visibility="invisible"/>
 
     <LinearLayout
         android:id="@+id/mainLayout"

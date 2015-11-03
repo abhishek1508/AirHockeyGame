@@ -29,15 +29,31 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.software.game.airhockeyandroid.Entities.Player;
+import com.software.game.airhockeyandroid.Entities.PowerUp;
 import com.software.game.airhockeyandroid.GameSettings.Settings;
+import com.software.game.airhockeyandroid.LoginManager.User_Login;
+import com.software.game.airhockeyandroid.NetworkManager.CustomJSONRequest;
+import com.software.game.airhockeyandroid.NetworkManager.VolleySingleton;
 import com.software.game.airhockeyandroid.R;
+import com.software.game.airhockeyandroid.Utilities.Constants;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Abhishek on 11/2/2015.
  */
 public class SinglePlayerActivity extends AppCompatActivity {
-
+    private RequestQueue queue = null;
     static int[] ballBlurColor = new int[]{8355711, -1349546097};
     static int[] ballColor = new int[]{-8421505, -269488145};
     static float ballRad = 0.045f;
@@ -212,12 +228,15 @@ public class SinglePlayerActivity extends AppCompatActivity {
         IntentFilter filter = new IntentFilter("android.intent.action.SCREEN_ON");
         filter.addAction("android.intent.action.SCREEN_OFF");
         registerReceiver(new ScreenReceiver(), filter);
-
+         final Player player = Player.getInstance();
+        queue = VolleySingleton.getsInstance().getRequestQueue();
         Button bt = (Button) findViewById(R.id.changeMalletSize);
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 trackMalletTime = System.currentTimeMillis();
+                updateButtonText("malletsize");
+
                 setPlayerMalletSize();
             }
         });
@@ -227,11 +246,131 @@ public class SinglePlayerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 trackGoalTime = System.currentTimeMillis();
+                updateButtonText("goalsize");
                 setGoalSize();
             }
         });
+
+        Button btpuck = (Button) findViewById(R.id.multiPuck);
+        btpuck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                trackGoalTime = System.currentTimeMillis();
+                updateButtonText("multipuck");
+                setGoalSize();
+            }
+        });
+
+
+        for(PowerUp power : player.powerUps){
+            if(power.getType().equalsIgnoreCase("Mallet Size") && power.getCount()!=0){
+                Button mallet= (Button)findViewById(R.id.changeMalletSize);
+                mallet.setVisibility(View.VISIBLE);
+                mallet.setText("Mallet Size"+power.getCount());
+            }
+            if(power.getType().equalsIgnoreCase("Goal Size") && power.getCount()!=0){
+                Button goal= (Button)findViewById(R.id.changeGoalSize);
+                goal.setVisibility(View.VISIBLE);
+                goal.setText("Goal Size" + power.getCount());
+            }
+            if(power.getType().equalsIgnoreCase("Puck") && power.getCount()!=0){
+                Button puck= (Button)findViewById(R.id.multiPuck);
+                puck.setVisibility(View.VISIBLE);
+                puck.setText("MultiPuck"+power.getCount());
+            }
+
+        }
     }
 
+    public void updateButtonText(String type) {
+        Player player = Player.getInstance();
+        Map<String,String> params = new HashMap<>();
+        params.put("username",player.getUsername());
+        if (type.equalsIgnoreCase("malletsize")) {
+            for (PowerUp power : player.powerUps) {
+                if (power.getType().equalsIgnoreCase("Mallet Size")) {
+                    power.setCount(power.getCount() - 1);
+                    Button mallet= (Button)findViewById(R.id.changeMalletSize);
+                    mallet.setText("Mallet Size" + power.getCount());
+                    params.put("count", String.valueOf(power.getCount()));
+                    params.put("type","Mallet Size");
+                    CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.UPDATE_POWER_UP_URL, params, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                        }
+                    });
+                    if (queue != null)
+                        queue.add(request);
+
+                    if(power.getCount()<1){
+                        mallet.setVisibility(View.INVISIBLE);
+                    }
+                }
+            }
+        }
+        if (type.equalsIgnoreCase("goalsize")) {
+            for (PowerUp power : player.powerUps) {
+                if (power.getType().equalsIgnoreCase("Goal Size")) {
+                    power.setCount(power.getCount() - 1);
+                    Button goal= (Button)findViewById(R.id.changeGoalSize);
+                    goal.setText("Goal Size" + power.getCount());
+                    params.put("count",String.valueOf(power.getCount()));
+                    params.put("type","Goal Size");
+                    CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.UPDATE_POWER_UP_URL, params, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                        }
+                    });
+                    if (queue != null)
+                        queue.add(request);
+
+                    if(power.getCount()<1){
+                        goal.setVisibility(View.INVISIBLE);
+                    }
+                }
+            }
+        }
+        if (type.equalsIgnoreCase("multipuck")) {
+            for (PowerUp power : player.powerUps) {
+                if (power.getType().equalsIgnoreCase("Multi Puck")) {
+                    power.setCount(power.getCount() - 1);
+                    Button puck= (Button)findViewById(R.id.multiPuck);
+                    puck.setText("MultiPuck" + power.getCount());
+                    params.put("count",String.valueOf(power.getCount()));
+                    params.put("type","Multi Puck");
+                    CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.UPDATE_POWER_UP_URL, params, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                        }
+                    });
+                    if (queue != null)
+                        queue.add(request);
+
+                    if(power.getCount()<1){
+                        puck.setVisibility(View.INVISIBLE);
+                    }
+                }
+            }
+        }
+    }
     public void setPlayerMalletSize() {
         if (bgndLoaded != 1) {
             malletMiddleRadScaled = (malletMiddleRad * ((float) screenW)) * relBatSize[0];
@@ -262,7 +401,7 @@ public class SinglePlayerActivity extends AppCompatActivity {
                 goalWidthPlayer = 0.39f;
                 goalWidthScaledPlayer = (goalWidthPlayer * ((float) screenW)) * relGoalSize[0];
             } else {
-                goalWidthPlayer = 0.6f;
+                goalWidthPlayer = 0.5f;
                 goalWidthScaledPlayer = (goalWidthPlayer * ((float) screenW)) * relGoalSize[0];
             }
         }
@@ -1218,6 +1357,6 @@ public class SinglePlayerActivity extends AppCompatActivity {
         paused2Time = currentTimeMillis;
         ballTime = (pausedBallTime - pausedTime) + currentTime;
         gameEndTime = (pausedGameEndTime - pausedTime) + currentTime;
-        ((RelativeLayout) findViewById(R.id.layoutGame)).invalidate();
+        ((RelativeLayout)findViewById(R.id.layoutGame)).invalidate();
     }
 }

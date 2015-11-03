@@ -11,4 +11,5 @@ public class Constants {
     public static final String UPDATE_PROFILE_URL = "http://65.111.166.234/phpFiles/manageProfile.php";
     public static final String GET_POWERUPS = "http://65.111.166.234/phpFiles/getPowerUps.php";
     public static final String LEADERSHIP_URL = "http://65.111.166.234/phpFiles/leadershipTable.php";
+    public static final String UPDATE_POWER_UP_URL = "http://65.111.166.234/phpFiles/updatePowerUps.php";
 }

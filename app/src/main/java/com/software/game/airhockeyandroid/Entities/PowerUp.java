@@ -5,6 +5,14 @@ package com.software.game.airhockeyandroid.Entities;
  */
 public class PowerUp {
 
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
     int count;
 
     public PowerUp(int count, String type){
