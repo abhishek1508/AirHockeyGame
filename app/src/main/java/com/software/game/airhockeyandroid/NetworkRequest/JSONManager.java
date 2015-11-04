@@ -27,6 +27,7 @@ public class JSONManager {
     }
     public void parsePowerUps(JSONObject object){
         try {
+           
             JSONArray array = object.getJSONArray("powerUp");
             for(int i=0; i< array.length();i++) {
                 String username = array.getJSONObject(i).getString("username");

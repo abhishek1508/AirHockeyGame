@@ -266,17 +266,17 @@ public class SinglePlayerActivity extends AppCompatActivity {
             if(power.getType().equalsIgnoreCase("Mallet Size") && power.getCount()!=0){
                 Button mallet= (Button)findViewById(R.id.changeMalletSize);
                 mallet.setVisibility(View.VISIBLE);
-                mallet.setText("Mallet Size"+power.getCount());
+                mallet.setText("Mallet Size"+"-"+power.getCount());
             }
             if(power.getType().equalsIgnoreCase("Goal Size") && power.getCount()!=0){
                 Button goal= (Button)findViewById(R.id.changeGoalSize);
                 goal.setVisibility(View.VISIBLE);
-                goal.setText("Goal Size" + power.getCount());
+                goal.setText("Goal Size" + "-"+power.getCount());
             }
             if(power.getType().equalsIgnoreCase("Puck") && power.getCount()!=0){
                 Button puck= (Button)findViewById(R.id.multiPuck);
                 puck.setVisibility(View.VISIBLE);
-                puck.setText("MultiPuck"+power.getCount());
+                puck.setText("MultiPuck"+"-"+power.getCount());
             }
 
         }
@@ -291,7 +291,7 @@ public class SinglePlayerActivity extends AppCompatActivity {
                 if (power.getType().equalsIgnoreCase("Mallet Size")) {
                     power.setCount(power.getCount() - 1);
                     Button mallet= (Button)findViewById(R.id.changeMalletSize);
-                    mallet.setText("Mallet Size" + power.getCount());
+                    mallet.setText("Mallet Size" + "-"+power.getCount());
                     params.put("count", String.valueOf(power.getCount()));
                     params.put("type","Mallet Size");
                     CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.UPDATE_POWER_UP_URL, params, new Response.Listener<JSONObject>() {
@@ -319,7 +319,7 @@ public class SinglePlayerActivity extends AppCompatActivity {
                 if (power.getType().equalsIgnoreCase("Goal Size")) {
                     power.setCount(power.getCount() - 1);
                     Button goal= (Button)findViewById(R.id.changeGoalSize);
-                    goal.setText("Goal Size" + power.getCount());
+                    goal.setText("Goal Size" +"-"+ power.getCount());
                     params.put("count",String.valueOf(power.getCount()));
                     params.put("type","Goal Size");
                     CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.UPDATE_POWER_UP_URL, params, new Response.Listener<JSONObject>() {
@@ -347,7 +347,7 @@ public class SinglePlayerActivity extends AppCompatActivity {
                 if (power.getType().equalsIgnoreCase("Multi Puck")) {
                     power.setCount(power.getCount() - 1);
                     Button puck= (Button)findViewById(R.id.multiPuck);
-                    puck.setText("MultiPuck" + power.getCount());
+                    puck.setText("MultiPuck" + "-"+power.getCount());
                     params.put("count",String.valueOf(power.getCount()));
                     params.put("type","Multi Puck");
                     CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.UPDATE_POWER_UP_URL, params, new Response.Listener<JSONObject>() {

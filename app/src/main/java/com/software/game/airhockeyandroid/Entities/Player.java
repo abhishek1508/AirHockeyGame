@@ -12,7 +12,7 @@ public class Player {
     private static int rank;
     private static int games_won;
     private static int games_lost;
-    public static ArrayList<PowerUp> powerUps;
+    public static ArrayList<PowerUp> powerUps = new ArrayList<>();
     private static Player player = null;
 
     private Player() {
@@ -30,7 +30,7 @@ public class Player {
             player.setGames_lost(games_lost);
             player.setPoints(coins);
             player.setRank(rank);
-            powerUps = new ArrayList<>();
+
         }
         return player;
     }
@@ -38,6 +38,7 @@ public class Player {
     public static Player getInstance() {
         if (player == null)
             player = new Player();
+
         return player;
     }
 

@@ -9,7 +9,7 @@
         android:id="@+id/changeMalletSize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="17dp"
+        android:layout_marginLeft="5dp"
         android:text="mallet Size"
         android:visibility="invisible"/>
 
@@ -26,7 +26,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Multi Puck"
-        android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/changeGoalSize"
         android:layout_toEndOf="@+id/changeGoalSize"
         android:visibility="invisible"/>
