@@ -5,20 +5,14 @@ package com.software.game.airhockeyandroid.Entities;
  */
 public class PowerUp {
 
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
     int count;
+    String type;
 
     public PowerUp(int count, String type){
         this.count= count;
         this.type= type;
     }
+
     public String getType() {
         return type;
     }
@@ -27,6 +21,12 @@ public class PowerUp {
         this.type = type;
     }
 
-    String type;
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
 }
