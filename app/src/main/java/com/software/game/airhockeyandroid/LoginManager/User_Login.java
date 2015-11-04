@@ -113,17 +113,17 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
     public void getPowerUps(String username) {
         Map<String, String> params = new HashMap<>();
         params.put("username", username);
-        CustomJSONRequest poweruprequest = new CustomJSONRequest(Request.Method.POST, Constants.GET_POWERUPS, params, new Response.Listener<JSONObject>() {
+        CustomJSONRequest powerUpRequest = new CustomJSONRequest(Request.Method.POST, Constants.GET_POWERUPS, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
                     if (response.getInt("success") == 1) {
                         JSONManager parse = new JSONManager();
                         parse.parsePowerUps(response);
-                        Intent intent = new Intent(User_Login.this, ChooseFromMenu.class);
-                        startActivity(intent);
                     } else
                         Toast.makeText(User_Login.this, R.string.no_power_up, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(User_Login.this, ChooseFromMenu.class);
+                    startActivity(intent);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -135,7 +135,7 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
             }
         });
         if (queue != null)
-            queue.add(poweruprequest);
+            queue.add(powerUpRequest);
     }
 
     @Override
