@@ -38,6 +38,9 @@ public class InAppPurchase extends AppCompatActivity implements View.OnClickList
     Button mBuyHole;
     Button mBuyPuck;
     TextView mBalance;
+    TextView mPuckCount;
+    TextView mHoleCount;
+    TextView mPaddleCount;
     boolean isUpdated = true;
     int coins = 0;
     String powerType;
@@ -63,6 +66,9 @@ public class InAppPurchase extends AppCompatActivity implements View.OnClickList
         mBuyPaddle = (Button) findViewById(R.id.buy_paddle);
         mBuyHole = (Button) findViewById(R.id.buy_hole);
         mBuyPuck = (Button) findViewById(R.id.buy_puck);
+        mPaddleCount = (TextView) findViewById(R.id.paddle_quantity);
+        mPuckCount = (TextView)findViewById(R.id.puck_quantity);
+        mHoleCount = (TextView) findViewById(R.id.hole_quantity);
         mPaddle.setOnClickListener(this);
         mHole.setOnClickListener(this);
         mPuck.setOnClickListener(this);
@@ -76,6 +82,24 @@ public class InAppPurchase extends AppCompatActivity implements View.OnClickList
         mBalance.setText(Integer.toString(Player.getInstance().getPoints()));
         mQueue = VolleySingleton.getsInstance().getRequestQueue();
         coins = Player.getInstance().getPoints();
+        initialPowerUpCount();
+    }
+
+    private void initialPowerUpCount(){
+        for (int i = 0; i < 3; i++) {
+            String power_type = Player.powerUps.get(i).getType();
+            int powerUp_count = Player.powerUps.get(i).getCount();
+            setPowerUpsCount(power_type,powerUp_count);
+        }
+    }
+
+    private void setPowerUpsCount(String power_type, int powerUp_count){
+        if(power_type.equalsIgnoreCase("Mallet Size"))
+            mPaddleCount.setText(String.valueOf(powerUp_count));
+        else if(power_type.equalsIgnoreCase("Goal Size"))
+            mHoleCount.setText(String.valueOf(powerUp_count));
+        else if(power_type.equalsIgnoreCase("Puck"))
+            mPuckCount.setText(String.valueOf(powerUp_count));
     }
 
     private void assignPowerUp(String type) {
@@ -84,45 +108,48 @@ public class InAppPurchase extends AppCompatActivity implements View.OnClickList
             for (int i = 0; i < 3; i++) {
                 String power_type = Player.powerUps.get(i).getType();
                 int powerUp_count = Player.powerUps.get(i).getCount();
-                if (powerUp_count < 11 && power_type.equalsIgnoreCase(type)) {
-                    if (power_type.equalsIgnoreCase("Mallet Size")) {
-                        if (coins >= 300)
-                            deduct = 300;
-                        else {
-                            Toast.makeText(InAppPurchase.this, R.string.insufficient_coins, Toast.LENGTH_SHORT).show();
-                            break;
+                if (power_type.equalsIgnoreCase(type) ){
+                    if (powerUp_count < 10) {
+                        if (power_type.equalsIgnoreCase("Mallet Size")) {
+                            if (coins >= 300)
+                                deduct = 300;
+                            else {
+                                Toast.makeText(InAppPurchase.this, R.string.insufficient_coins, Toast.LENGTH_SHORT).show();
+                                break;
+                            }
+                        } else if (power_type.equalsIgnoreCase("Goal Size")) {
+                            if (coins >= 300)
+                                deduct = 300;
+                            else {
+                                Toast.makeText(InAppPurchase.this, R.string.insufficient_coins, Toast.LENGTH_SHORT).show();
+                                break;
+                            }
+                        } else if (power_type.equalsIgnoreCase("Puck")) {
+                            if (coins >= 200)
+                                deduct = 200;
+                            else {
+                                Toast.makeText(InAppPurchase.this, R.string.insufficient_coins, Toast.LENGTH_SHORT).show();
+                                break;
+                            }
                         }
-                    } else if (power_type.equalsIgnoreCase("Goal Size")) {
-                        if (coins >= 300)
-                            deduct = 300;
-                        else {
-                            Toast.makeText(InAppPurchase.this, R.string.insufficient_coins, Toast.LENGTH_SHORT).show();
-                            break;
-                        }
-                    } else if (power_type.equalsIgnoreCase("Puck")) {
-                        if (coins >= 200)
-                            deduct = 200;
-                        else {
-                            Toast.makeText(InAppPurchase.this, R.string.insufficient_coins, Toast.LENGTH_SHORT).show();
-                            break;
-                        }
+                        Player.powerUps.remove(i);
+                        PowerUp power = new PowerUp(powerUp_count + 1, power_type);
+                        Player.powerUps.add(i, power);
+                        setPowerUpsCount(power_type,powerUp_count+1);
+                        coins = coins - deduct;
+                        mBalance.setText(Integer.toString(coins));
+                        Player.getInstance().setPoints(coins);
+                        Map<String, String> params = new HashMap<>();
+                        params.put("username", Player.getInstance().getUsername());
+                        params.put("coins", String.valueOf(coins));
+                        updateDataBase(Constants.UPDATE_COINS_URL, params);
+                        powerType = type;
+                        powerCount = powerUp_count + 1;
+                        break;
                     }
-                    Player.powerUps.remove(i);
-                    PowerUp power = new PowerUp(powerUp_count + 1, power_type);
-                    Player.powerUps.add(i, power);
-                    coins = coins - deduct;
-                    mBalance.setText(Integer.toString(coins));
-                    Player.getInstance().setPoints(coins);
-                    Map<String, String> params = new HashMap<>();
-                    params.put("username", Player.getInstance().getUsername());
-                    params.put("coins", String.valueOf(coins));
-                    updateDataBase(Constants.UPDATE_COINS_URL, params);
-                    powerType = type;
-                    powerCount = powerUp_count+1;
-                    break;
+                    else
+                        Toast.makeText(InAppPurchase.this, R.string.no_more_than_ten, Toast.LENGTH_SHORT).show();
                 }
-                else
-                    Toast.makeText(InAppPurchase.this, R.string.no_more_than_ten, Toast.LENGTH_SHORT).show();
             }
         } else
             Toast.makeText(InAppPurchase.this, R.string.insufficient_coins, Toast.LENGTH_SHORT).show();
