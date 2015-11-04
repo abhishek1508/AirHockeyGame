@@ -112,6 +112,7 @@ public class InAppPurchase extends AppCompatActivity implements View.OnClickList
                     Player.powerUps.add(i, power);
                     coins = coins - deduct;
                     mBalance.setText(Integer.toString(coins));
+                    Player.getInstance().setPoints(coins);
                     Map<String, String> params = new HashMap<>();
                     params.put("username", Player.getInstance().getUsername());
                     params.put("coins", String.valueOf(coins));
@@ -120,6 +121,8 @@ public class InAppPurchase extends AppCompatActivity implements View.OnClickList
                     powerCount = powerUp_count+1;
                     break;
                 }
+                else
+                    Toast.makeText(InAppPurchase.this, R.string.no_more_than_ten, Toast.LENGTH_SHORT).show();
             }
         } else
             Toast.makeText(InAppPurchase.this, R.string.insufficient_coins, Toast.LENGTH_SHORT).show();

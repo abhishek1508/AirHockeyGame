@@ -24,7 +24,7 @@
 
         <TextView
             android:id="@+id/balance_text"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_toRightOf="@+id/balance_coins_text"
             android:layout_marginLeft="20dp"
@@ -79,12 +79,11 @@
 
                     <TextView
                         android:id="@+id/paddle_quantity"
-                        android:layout_width="50dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="25dp"
                         android:layout_marginLeft="10dp"
                         android:layout_toEndOf="@+id/paddle_info"
-                        android:layout_toRightOf="@+id/paddle_info"
-                        android:text="3" />
+                        android:layout_toRightOf="@+id/paddle_info"/>
 
                 </RelativeLayout>
 
@@ -150,12 +149,11 @@
 
                     <TextView
                         android:id="@+id/hole_quantity"
-                        android:layout_width="50dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="25dp"
                         android:layout_marginLeft="10dp"
                         android:layout_toEndOf="@+id/hole_info"
-                        android:layout_toRightOf="@+id/hole_info"
-                        android:text="3" />
+                        android:layout_toRightOf="@+id/hole_info"/>
 
                 </RelativeLayout>
 
@@ -220,12 +218,11 @@
 
                     <TextView
                         android:id="@+id/puck_quantity"
-                        android:layout_width="50dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="25dp"
                         android:layout_marginLeft="10dp"
                         android:layout_toEndOf="@+id/multi_puck_info"
-                        android:layout_toRightOf="@+id/multi_puck_info"
-                        android:text="3" />
+                        android:layout_toRightOf="@+id/multi_puck_info"/>
 
                 </RelativeLayout>
 
