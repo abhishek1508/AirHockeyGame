@@ -348,7 +348,7 @@ public class SinglePlayerActivity extends AppCompatActivity {
                     power.setCount(power.getCount() - 1);
                     Button puck= (Button)findViewById(R.id.multiPuck);
                     puck.setText("MultiPuck" + "-"+power.getCount());
-                    params.put("count",String.valueOf(power.getCount()));
+                    params.put("count", String.valueOf(power.getCount()));
                     params.put("type","Multi Puck");
                     CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.UPDATE_POWER_UP_URL, params, new Response.Listener<JSONObject>() {
                         @Override
@@ -960,8 +960,10 @@ public class SinglePlayerActivity extends AppCompatActivity {
                                 gameEnded = 3;
                             } else if (scoreTop > scoreBottom) {
                                 gameEnded = 1;
+                                updateRank(false);
                             } else {
                                 gameEnded = 2;
+                                updateRank(true);
                             }
                         }
                     }
@@ -1358,5 +1360,37 @@ public class SinglePlayerActivity extends AppCompatActivity {
         ballTime = (pausedBallTime - pausedTime) + currentTime;
         gameEndTime = (pausedGameEndTime - pausedTime) + currentTime;
         ((RelativeLayout)findViewById(R.id.layoutGame)).invalidate();
+    }
+
+    public void updateRank(boolean isWon){
+        Player player = Player.getInstance();
+        HashMap<String,String> params = new HashMap<String,String>();
+        if(isWon){
+            player.setGames_won(player.getGames_won()+1);
+            player.setPoints(player.getPoints()+50);
+        }else{
+            player.setGames_lost(player.getGames_lost()+1);
+        }
+        int score = (player.getGames_won()*100)/(player.getGames_lost()+player.getGames_won());
+        player.setRank(score);
+        params.put("games_lost",String.valueOf(player.getGames_lost()));
+        params.put("games_won",String.valueOf(player.getGames_won()));
+        params.put("score",String.valueOf(score));
+        params.put("coins",String.valueOf(player.getPoints()));
+        params.put("username",player.getUsername());
+        CustomJSONRequest request = new CustomJSONRequest(Request.Method.POST, Constants.UPDATE_SCORE, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        if (queue != null)
+            queue.add(request);
+
     }
 }
