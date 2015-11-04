@@ -21,16 +21,19 @@ public class Player {
 
     public static Player getInstance(String username, int coins, int rank, int games_won, int games_lost) {
         if (player == null) {
-
             player = new Player();
-        }else{
-
+        } else {
             player.setUsername(username);
             player.setGames_won(games_won);
             player.setGames_lost(games_lost);
             player.setPoints(coins);
             player.setRank(rank);
-
+            PowerUp p1 = new PowerUp(0, "Mallet Size");
+            PowerUp p2 = new PowerUp(0, "Goal Size");
+            PowerUp p3 = new PowerUp(0, "Puck");
+            powerUps.add(p1);
+            powerUps.add(p2);
+            powerUps.add(p3);
         }
         return player;
     }

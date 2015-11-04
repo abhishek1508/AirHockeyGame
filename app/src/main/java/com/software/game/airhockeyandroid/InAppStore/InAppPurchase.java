@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -38,9 +39,11 @@ public class InAppPurchase extends AppCompatActivity implements View.OnClickList
     Button mBuyPuck;
     TextView mBalance;
     boolean isUpdated = true;
+    int coins = 0;
+    String powerType;
+    int powerCount;
 
     private RequestQueue mQueue;
-    private Player player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,94 +75,121 @@ public class InAppPurchase extends AppCompatActivity implements View.OnClickList
         mBalance = (TextView) findViewById(R.id.balance_text);
         mBalance.setText(Integer.toString(Player.getInstance().getPoints()));
         mQueue = VolleySingleton.getsInstance().getRequestQueue();
-        player = Player.getInstance();
-
+        coins = Player.getInstance().getPoints();
     }
 
     private void assignPowerUp(String type) {
         int deduct = 0;
-        if (!player.powerUps.isEmpty()) {
-            for (PowerUp p : player.powerUps) {
-                String power_type = p.getType();
-                int powerUp_count = p.getCount();
+        if (coins != 0) {
+            for (int i = 0; i < 3; i++) {
+                String power_type = Player.powerUps.get(i).getType();
+                int powerUp_count = Player.powerUps.get(i).getCount();
                 if (powerUp_count < 11 && power_type.equalsIgnoreCase(type)) {
-                    if (power_type.equalsIgnoreCase("Mallet Size"))
-                        deduct = 300;
-                    else if (power_type.equalsIgnoreCase("Goal Size"))
-                        deduct = 300;
-                    else if (power_type.equalsIgnoreCase("Puck"))
-                        deduct = 200;
+                    if (power_type.equalsIgnoreCase("Mallet Size")) {
+                        if (coins >= 300)
+                            deduct = 300;
+                        else {
+                            Toast.makeText(InAppPurchase.this, R.string.insufficient_coins, Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                    } else if (power_type.equalsIgnoreCase("Goal Size")) {
+                        if (coins >= 300)
+                            deduct = 300;
+                        else {
+                            Toast.makeText(InAppPurchase.this, R.string.insufficient_coins, Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                    } else if (power_type.equalsIgnoreCase("Puck")) {
+                        if (coins >= 200)
+                            deduct = 200;
+                        else {
+                            Toast.makeText(InAppPurchase.this, R.string.insufficient_coins, Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                    }
                     Player.powerUps.remove(i);
-                    PowerUp power = new PowerUp(powerUp_count, power_type);
+                    PowerUp power = new PowerUp(powerUp_count + 1, power_type);
                     Player.powerUps.add(i, power);
-                    mBalance.setText(Integer.toString(Player.getInstance().getPoints() - deduct));
+                    coins = coins - deduct;
+                    mBalance.setText(Integer.toString(coins));
                     Map<String, String> params = new HashMap<>();
                     params.put("username", Player.getInstance().getUsername());
-                    params.put("coins", String.valueOf(Player.getInstance().getPoints() - deduct));
+                    params.put("coins", String.valueOf(coins));
                     updateDataBase(Constants.UPDATE_COINS_URL, params);
-                    while (isUpdated) ;
-                    params.clear();
-                    params.put("username", Player.getInstance().getUsername());
-                    params.put("count", String.valueOf(powerUp_count));
-                    params.put("type", power_type);
-                    updateDataBase(Constants.UPDATE_POWER_UP_URL, params);
+                    powerType = type;
+                    powerCount = powerUp_count+1;
                     break;
                 }
             }
-        }
-        else{
-            PowerUp power = new PowerUp(1,type);
-            player.powerUps.add(power);
-        }
-
+        } else
+            Toast.makeText(InAppPurchase.this, R.string.insufficient_coins, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            case R.id.paddle_pop:
+                mBlackHoleLayout.setVisibility(View.GONE);
+                mPaddlePopLayout.setVisibility(View.VISIBLE);
+                mMultiPuckLayout.setVisibility(View.GONE);
+                break;
+            case R.id.black_hole:
+                mBlackHoleLayout.setVisibility(View.VISIBLE);
+                mMultiPuckLayout.setVisibility(View.GONE);
+                mPaddlePopLayout.setVisibility(View.GONE);
+                break;
+            case R.id.multi_puck:
+                mPaddlePopLayout.setVisibility(View.GONE);
+                mMultiPuckLayout.setVisibility(View.VISIBLE);
+                mBlackHoleLayout.setVisibility(View.GONE);
+                break;
+
+            case R.id.buy_paddle:
+                assignPowerUp("Mallet Size");
+                break;
+
+            case R.id.buy_hole:
+                assignPowerUp("Goal Size");
+                break;
+
+            case R.id.buy_puck:
+                assignPowerUp("Puck");
+                break;
+        }
+    }
+
+    private void updateDataBase(String url, Map<String, String> params) {
+        CustomJSONRequest req = new CustomJSONRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
-            public void onClick (View v){
-                switch (v.getId()) {
-
-                    case R.id.paddle_pop:
-                        mBlackHoleLayout.setVisibility(View.GONE);
-                        mPaddlePopLayout.setVisibility(View.VISIBLE);
-                        mMultiPuckLayout.setVisibility(View.GONE);
-                        break;
-                    case R.id.black_hole:
-                        mBlackHoleLayout.setVisibility(View.VISIBLE);
-                        mMultiPuckLayout.setVisibility(View.GONE);
-                        mPaddlePopLayout.setVisibility(View.GONE);
-                        break;
-                    case R.id.multi_puck:
-                        mPaddlePopLayout.setVisibility(View.GONE);
-                        mMultiPuckLayout.setVisibility(View.VISIBLE);
-                        mBlackHoleLayout.setVisibility(View.GONE);
-                        break;
-
-                    case R.id.buy_paddle:
-                        assignPowerUp("Mallet Size");
-                        break;
-
-                    case R.id.buy_hole:
-                        assignPowerUp("Goal Size");
-                        break;
-
-                    case R.id.buy_puck:
-                        assignPowerUp("Puck");
-                        break;
-                }
+            public void onResponse(JSONObject response) {
+                updatePowerUpDataBase(Constants.UPDATE_POWER_UP_URL);
             }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
 
-        private void updateDataBase (String url, Map < String, String > params){
-            CustomJSONRequest req = new CustomJSONRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    isUpdated = false;
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-                }
-            });
-            mQueue.add(req);
-        }
+            }
+        });
+        mQueue.add(req);
     }
+
+    private void updatePowerUpDataBase(String url) {
+        Map<String, String> params = new HashMap<>();
+        params.put("username", Player.getInstance().getUsername());
+        params.put("count", String.valueOf(powerCount));
+        params.put("type", powerType);
+        CustomJSONRequest req = new CustomJSONRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        mQueue.add(req);
+    }
+}

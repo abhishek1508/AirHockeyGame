@@ -33,8 +33,9 @@ public class JSONManager {
                 String username = array.getJSONObject(i).getString("username");
                 int count = array.getJSONObject(i).getInt("count");
                 String type = array.getJSONObject(i).getString("type");
+                Player.powerUps.remove(i);
                 PowerUp power = new PowerUp(count, type);
-                Player.powerUps.add(power);
+                Player.powerUps.add(i,power);
             }
         } catch (JSONException e) {
             e.printStackTrace();
