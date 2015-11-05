@@ -175,6 +175,9 @@ public class ManageProfile extends AppCompatActivity implements View.OnClickList
             @Override
             public void onResponse(JSONObject response) {
                 Toast.makeText(ManageProfile.this, R.string.profile_updated, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ManageProfile.this, User_Login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         }, new Response.ErrorListener() {
             @Override

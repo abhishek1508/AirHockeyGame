@@ -63,14 +63,14 @@ public class SinglePlayerActivity extends AppCompatActivity {
     static float decelHit = 0.8f;
     static long doubleDelay = 2000;
     static int[] edgeBottomBlurColor = new int[]{16711680, -1342242816};
-    static int[] edgeBottomColor = new int[]{-65536, -269488145};
+    static int[] edgeBottomColor = new int[]{Color.YELLOW, -269488145};
     static float edgeLoc = 0.03f;
     static int[] edgeTopBlurColor = new int[]{MotionEventCompat.ACTION_MASK, -1358954241};
-    static int[] edgeTopColor = new int[]{-16776961, -269488145};
+    static int[] edgeTopColor = new int[]{Color.GREEN, -269488145};
     static int[] fieldColor = new int[]{-1, -16777216};
     static float goalWidth = 0.39f;
     static float goalWidthPlayer = 0.39f;
-    static int[] lineColor = new int[]{-16744704, -8421505};
+    static int[] lineColor = new int[]{-15987980, -8421505};
     static int[] malletBottomBlurColor = new int[]{16711680, -1342242816};
     static int[] malletBottomOuterColor = new int[]{-8454144, -269488145};
     static int[] malletBottomMiddleColor = new int[]{-12648448, -6356992};

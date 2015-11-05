@@ -27,15 +27,20 @@ public class JSONManager {
     }
     public void parsePowerUps(JSONObject object){
         try {
-
+            Player player = Player.getInstance();
             JSONArray array = object.getJSONArray("powerUp");
             for(int i=0; i< array.length();i++) {
                 String username = array.getJSONObject(i).getString("username");
                 int count = array.getJSONObject(i).getInt("count");
                 String type = array.getJSONObject(i).getString("type");
-                Player.powerUps.remove(i);
-                PowerUp power = new PowerUp(count, type);
-                Player.powerUps.add(i,power);
+                for(PowerUp power : player.powerUps){
+                    if(power.getType().equalsIgnoreCase(type)){
+                        power.setCount(count);
+                    }
+                }
+                //Player.powerUps.remove(i);
+                //PowerUp power = new PowerUp(count, type);
+                //Player.powerUps.add(i,power);
             }
         } catch (JSONException e) {
             e.printStackTrace();

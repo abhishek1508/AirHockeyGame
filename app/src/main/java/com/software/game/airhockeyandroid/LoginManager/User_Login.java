@@ -31,7 +31,7 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
     EditText mPassword;
     Button mLogin;
     Button mCreateProfile;
-    boolean isComplete = false;
+    int isComplete = 0;
     private RequestQueue queue = null;
     Player player = null;
     private String mDebug = User_Login.class.getSimpleName();
@@ -77,7 +77,7 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
     }
 
     private void verifyLogin(String name, String password) {
-
+        final String user=name;
         Map<String, String> params = new HashMap<>();
         if (name.equalsIgnoreCase("/") || password.equalsIgnoreCase(""))
             Toast.makeText(User_Login.this, R.string.incomplete_credentials, Toast.LENGTH_SHORT).show();
@@ -91,8 +91,11 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
                         if (response.getInt("success") == 1) {
                             JSONManager manager = new JSONManager();
                             manager.parseJSON(response);
+                            getPowerUps(user);
                         } else
                             Toast.makeText(User_Login.this, R.string.invalid_credentials, Toast.LENGTH_SHORT).show();
+                            isComplete=1;
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -122,8 +125,10 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
                         parse.parsePowerUps(response);
                     } else
                         Toast.makeText(User_Login.this, R.string.no_power_up, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(User_Login.this, ChooseFromMenu.class);
-                    startActivity(intent);
+                        Intent intent = new Intent(User_Login.this, ChooseFromMenu.class);
+
+                        startActivity(intent);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -145,8 +150,8 @@ public class User_Login extends AppCompatActivity implements View.OnClickListene
         String password = mPassword.getText().toString();
         if (id == R.id.login_button) {
             verifyLogin(name, password);
-            while (player == null) ;
-            getPowerUps(name);
+           // while (player == null) ;
+           // getPowerUps(name);
 
         } else if (id == R.id.create_profile_button) {
             Intent intent = new Intent(User_Login.this, CreateProfile.class);
