@@ -95,7 +95,7 @@ public class Leadership extends AppCompatActivity implements OnClickListener {
                         b19.setTypeface(Typeface.DEFAULT_BOLD);
                         tr.addView(b19);
 
-                        TextView b29 = new TextView(Leadership.this);
+                       /* TextView b29 = new TextView(Leadership.this);
                         b29.setPadding(20, 20, 20, 20);
                         ;
                         b29.setText("Rank");
@@ -103,7 +103,7 @@ public class Leadership extends AppCompatActivity implements OnClickListener {
                         b29.setTextSize(17);
                         b29.setTypeface(Typeface.DEFAULT_BOLD);
                         b29.setGravity(Gravity.CENTER);
-                        tr.addView(b29);
+                        tr.addView(b29); */
 
                         TextView b39 = new TextView(Leadership.this);
                         b39.setPadding(20, 20, 20, 20);
@@ -154,7 +154,7 @@ public class Leadership extends AppCompatActivity implements OnClickListener {
                         b1.setTypeface(Typeface.DEFAULT_BOLD);
                         tr.addView(b1);
 
-                        TextView b2 = new TextView(Leadership.this);
+                        /*TextView b2 = new TextView(Leadership.this);
                         String stime2 = String.valueOf(json_data.getInt("rank"));
                         b2.setPadding(20, 20, 20, 20);
                         ;
@@ -163,7 +163,7 @@ public class Leadership extends AppCompatActivity implements OnClickListener {
                         b2.setTextSize(17);
                         b2.setGravity(Gravity.CENTER);
                         b2.setTypeface(Typeface.DEFAULT_BOLD);
-                        tr.addView(b2);
+                        tr.addView(b2);*/
 
                         TextView b3 = new TextView(Leadership.this);
                         String stime3 = String.valueOf(json_data.getInt("games_won"));
@@ -194,12 +194,12 @@ public class Leadership extends AppCompatActivity implements OnClickListener {
     private void initialize() {
         mUserName = (TextView) findViewById(R.id.user_nam_text);
         mCoins = (TextView) findViewById(R.id.leader_points_user);
-        mRank = (TextView) findViewById(R.id.leader_rank_user);
+        //mRank = (TextView) findViewById(R.id.leader_rank_user);
         mGamesWon = (TextView) findViewById(R.id.leader_won_user);
 
         mUserName.setText(Player.getInstance().getUsername());
         mCoins.setText(Integer.toString(Player.getInstance().getPoints()));
-        mRank.setText(Integer.toString(Player.getInstance().getRank()));
+        //mRank.setText(Integer.toString(Player.getInstance().getRank()));
         mGamesWon.setText(Integer.toString(Player.getInstance().getGames_won()));
 
     }
