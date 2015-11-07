@@ -19,9 +19,9 @@ public class ChooseFromPlayerMode extends AppCompatActivity implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_choose_player_mode);
-        mSingle = (Button) findViewById(R.id.button_single_player);
-        mMulti = (Button) findViewById(R.id.button_multi_player);
+        setContentView(R.layout.layout_choose_play_options);
+        mSingle = (Button) findViewById(R.id.single_player);
+        mMulti = (Button) findViewById(R.id.multi_player);
         mSingle.setOnClickListener(this);
         mMulti.setOnClickListener(this);
     }
@@ -30,11 +30,13 @@ public class ChooseFromPlayerMode extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         switch(v.getId()){
 
-            case R.id.button_single_player:
+            case R.id.single_player:
                 Intent intent = new Intent(this,SinglePlayerActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                finish();
                 break;
-            case R.id.button_multi_player:
+            case R.id.multi_player:
                 Toast.makeText(this,R.string.coming_soon,Toast.LENGTH_SHORT).show();
                 break;
         }

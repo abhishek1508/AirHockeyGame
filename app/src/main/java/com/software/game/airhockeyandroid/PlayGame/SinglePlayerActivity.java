@@ -38,6 +38,7 @@ import com.android.volley.VolleyError;
 import com.software.game.airhockeyandroid.Entities.Player;
 import com.software.game.airhockeyandroid.Entities.PowerUp;
 import com.software.game.airhockeyandroid.GameSettings.Settings;
+import com.software.game.airhockeyandroid.LeadershipBoard.Leadership;
 import com.software.game.airhockeyandroid.LoginManager.User_Login;
 import com.software.game.airhockeyandroid.NetworkManager.CustomJSONRequest;
 import com.software.game.airhockeyandroid.NetworkManager.VolleySingleton;
@@ -1330,6 +1331,7 @@ public class SinglePlayerActivity extends AppCompatActivity {
         }
     }
 
+
     public void onDestroy() {
         super.onDestroy();
         if (bgndBitmap != null) {
@@ -1338,7 +1340,6 @@ public class SinglePlayerActivity extends AppCompatActivity {
         if (soundPool != null) {
             soundPool.release();
         }
-        //sendBroadcast(new Intent(CommonActivity.CUSTOM_INTENT));
     }
 
     public void onPause() {
@@ -1349,11 +1350,11 @@ public class SinglePlayerActivity extends AppCompatActivity {
             pausedGameEndTime = gameEndTime;
             paused = 1;
         }
+        finishGame();
     }
 
     public void onResume() {
         super.onResume();
-        //Log.d(CommonActivity.TAG, "onresume for Playgame");
         long currentTimeMillis = System.currentTimeMillis();
         currentTime = currentTimeMillis;
         paused2Time = currentTimeMillis;
@@ -1362,6 +1363,12 @@ public class SinglePlayerActivity extends AppCompatActivity {
         ((RelativeLayout)findViewById(R.id.layoutGame)).invalidate();
     }
 
+    public void finishGame(){
+        Intent intent = new Intent(this, Leadership.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
     public void updateRank(boolean isWon){
         Player player = Player.getInstance();
         HashMap<String,String> params = new HashMap<String,String>();
