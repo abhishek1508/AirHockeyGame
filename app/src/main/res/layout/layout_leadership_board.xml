@@ -93,7 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@android:color/white"
-        android:alpha="0.8">
+        android:alpha="0.9">
 
         <TableLayout
             android:id="@+id/leader_table"
