@@ -6,7 +6,8 @@
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:paddingTop="20dp"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@drawable/background">
 
 
     <RelativeLayout
@@ -20,7 +21,7 @@
             android:layout_height="25dp"
             android:layout_marginLeft="10dp"
             android:text="@string/coins_remaining"
-            android:textColor="#009688"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -30,7 +31,7 @@
             android:layout_height="25dp"
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/balance_coins_text"
-            android:textColor="#009688"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -41,6 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:alpha="0.9"
         card_view:cardCornerRadius="4dp">
 
 
@@ -114,6 +116,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:alpha="0.9"
         card_view:cardCornerRadius="4dp">
 
         <RelativeLayout
@@ -183,6 +186,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:alpha="0.9"
         card_view:cardCornerRadius="4dp">
 
         <RelativeLayout
