@@ -37,18 +37,17 @@
     <string name="profile_updated">Profile Updated</string>
     <string name="profile_deleted">Profile Deleted</string>
     <string name="wrong_info">Wrong Information</string>
-    <string name="paddle_description">Paddle size of the User will be enlarged for 30 seconds.</string>
-    <string name="paddle_quant">Quantity you have</string>
-    <string name="hole_description">Hole size of the opposite player will be enlarged for 30 seconds</string>
-    <string name="hole_quant">Quantity you have</string>
+    <string name="paddle_description">Your paddle size will enlarge for 30 seconds.</string>
+    <string name="quant">Buy -  %1$s/10</string>
+    <string name="hole_description">Hole size of the opposite player will enlarge for 30 seconds</string>
     <string name="puck_description">The puck quantity will be doubled for 30 seconds </string>
-    <string name="puck_quant">Quantity you have</string>
-    <string name="coins_remaining">Balance Coins</string>
+    <string name="coins_remaining">Balance Coins - </string>
     <string name="multi_player_button_text">Multi Player</string>
     <string name="single_player_button_text">Single Player</string>
     <string name="coming_soon">Coming Soon</string>
     <string name="game_over">Game Over</string>
     <string name="insufficient_coins">Insufficient coins</string>
     <string name="no_more_than_ten">You cannot have more than 10 power ups</string>
+    <string name="description">Description:</string>
 
 </resources>

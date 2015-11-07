@@ -6,7 +6,8 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:paddingTop="25dp"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@drawable/background">
 
     <RelativeLayout
         android:id="@+id/user_data"
@@ -18,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:text="Your Username:"
-            android:textColor="#009688"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -28,8 +29,7 @@
             android:layout_height="25dp"
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/leader_name_text"
-            android:text="neelam"
-            android:textColor="#009688"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:text="Your Coins:"
-            android:textColor="#009688"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -55,8 +55,7 @@
             android:layout_height="25dp"
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/leader_points_text"
-            android:text="1000"
-            android:textColor="#009688"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -73,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:text="Games Won:"
-            android:textColor="#009688"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -83,18 +82,25 @@
             android:layout_height="25dp"
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/leader_won_text"
-            android:text="1"
-            android:textColor="#009688"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 
     </RelativeLayout>
 
-
-    <TableLayout
-        android:id="@+id/leader_table"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/white"
+        android:alpha="0.8">
+
+        <TableLayout
+            android:id="@+id/leader_table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
 
 
 </LinearLayout>

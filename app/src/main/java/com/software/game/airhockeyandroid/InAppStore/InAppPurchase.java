@@ -28,20 +28,11 @@ import java.util.Map;
  * Created by neela on 10/21/2015.
  */
 public class InAppPurchase extends AppCompatActivity implements View.OnClickListener {
-    LinearLayout mPaddlePopLayout;
-    LinearLayout mBlackHoleLayout;
-    LinearLayout mMultiPuckLayout;
-    Button mPaddle;
-    Button mPuck;
-    Button mHole;
-    Button mBuyPaddle;
-    Button mBuyHole;
-    Button mBuyPuck;
+
     TextView mBalance;
     TextView mPuckCount;
     TextView mHoleCount;
-    TextView mPaddleCount;
-    boolean isUpdated = true;
+    Button mPaddleCount;
     int coins = 0;
     String powerType;
     int powerCount;
@@ -57,27 +48,15 @@ public class InAppPurchase extends AppCompatActivity implements View.OnClickList
     }
 
     private void initialize() {
-        mPaddlePopLayout = (LinearLayout) findViewById(R.id.layout_update_paddle);
-        mBlackHoleLayout = (LinearLayout) findViewById(R.id.layout_update_hole);
-        mMultiPuckLayout = (LinearLayout) findViewById(R.id.layout_multi_puck);
-        mPaddle = (Button) findViewById(R.id.paddle_pop);
-        mPuck = (Button) findViewById(R.id.multi_puck);
-        mHole = (Button) findViewById(R.id.black_hole);
-        mBuyPaddle = (Button) findViewById(R.id.buy_paddle);
-        mBuyHole = (Button) findViewById(R.id.buy_hole);
-        mBuyPuck = (Button) findViewById(R.id.buy_puck);
-        mPaddleCount = (TextView) findViewById(R.id.paddle_quantity);
-        mPuckCount = (TextView)findViewById(R.id.puck_quantity);
-        mHoleCount = (TextView) findViewById(R.id.hole_quantity);
-        mPaddle.setOnClickListener(this);
-        mHole.setOnClickListener(this);
-        mPuck.setOnClickListener(this);
-        mBuyPaddle.setOnClickListener(this);
-        mBuyPuck.setOnClickListener(this);
-        mBuyHole.setOnClickListener(this);
-        mBlackHoleLayout.setVisibility(View.GONE);
-        mMultiPuckLayout.setVisibility(View.GONE);
-        mPaddlePopLayout.setVisibility(View.GONE);
+
+        mPaddleCount = (Button) findViewById(R.id.paddle_pop_quantity);
+        mPuckCount = (Button)findViewById(R.id.multi_puck_quantity);
+        mHoleCount = (Button) findViewById(R.id.black_hole_quantity);
+
+        mPaddleCount.setOnClickListener(this);
+        mPuckCount.setOnClickListener(this);
+        mHoleCount.setOnClickListener(this);
+
         mBalance = (TextView) findViewById(R.id.balance_text);
         mBalance.setText(Integer.toString(Player.getInstance().getPoints()));
         mQueue = VolleySingleton.getsInstance().getRequestQueue();
@@ -94,12 +73,18 @@ public class InAppPurchase extends AppCompatActivity implements View.OnClickList
     }
 
     private void setPowerUpsCount(String power_type, int powerUp_count){
-        if(power_type.equalsIgnoreCase("Mallet Size"))
-            mPaddleCount.setText(String.valueOf(powerUp_count));
-        else if(power_type.equalsIgnoreCase("Goal Size"))
-            mHoleCount.setText(String.valueOf(powerUp_count));
-        else if(power_type.equalsIgnoreCase("Puck"))
-            mPuckCount.setText(String.valueOf(powerUp_count));
+        if(power_type.equalsIgnoreCase("Mallet Size")) {
+            String quant = getString(R.string.quant,String.valueOf(powerUp_count));
+            mPaddleCount.setText(quant);
+        }
+        else if(power_type.equalsIgnoreCase("Goal Size")){
+            String quant = getString(R.string.quant,String.valueOf(powerUp_count));
+            mHoleCount.setText(quant);
+        }
+        else if(power_type.equalsIgnoreCase("Puck")){
+            String quant = getString(R.string.quant,String.valueOf(powerUp_count));
+            mPuckCount.setText(quant);
+        }
     }
 
     private void assignPowerUp(String type) {
@@ -159,33 +144,18 @@ public class InAppPurchase extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.paddle_pop:
-                mBlackHoleLayout.setVisibility(View.GONE);
-                mPaddlePopLayout.setVisibility(View.VISIBLE);
-                mMultiPuckLayout.setVisibility(View.GONE);
-                break;
-            case R.id.black_hole:
-                mBlackHoleLayout.setVisibility(View.VISIBLE);
-                mMultiPuckLayout.setVisibility(View.GONE);
-                mPaddlePopLayout.setVisibility(View.GONE);
-                break;
-            case R.id.multi_puck:
-                mPaddlePopLayout.setVisibility(View.GONE);
-                mMultiPuckLayout.setVisibility(View.VISIBLE);
-                mBlackHoleLayout.setVisibility(View.GONE);
-                break;
-
-            case R.id.buy_paddle:
+            case R.id.paddle_pop_quantity:
                 assignPowerUp("Mallet Size");
                 break;
 
-            case R.id.buy_hole:
+            case R.id.black_hole_quantity:
                 assignPowerUp("Goal Size");
                 break;
 
-            case R.id.buy_puck:
+            case R.id.multi_puck_quantity:
                 assignPowerUp("Puck");
                 break;
+
         }
     }
 
