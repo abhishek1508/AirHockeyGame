@@ -674,12 +674,24 @@ public class SinglePlayerActivity extends AppCompatActivity {
                                 }
                             }
                         } else if (paused == 0) {
-                            batBottomGoX = (float) coordX;
-                            batBottomGoY = (float) coordY;
+                            if(scoreBottom-scoreTop >= 3){
+                                batBottomGoX = (float) coordX+100;
+                                batBottomGoY = (float) coordY+100;
+                            }else{
+                                batBottomGoX = (float) coordX;
+                                batBottomGoY = (float) coordY;
+                            }
+
                         }
                     } else if (paused == 0) {
-                        batTopGoX = (float) coordX;
-                        batTopGoY = (float) coordY;
+                        if(scoreTop-scoreBottom >= 3 ){
+                            batTopGoX = (float) coordX+100;
+                            batTopGoY = (float) coordY+100;
+                        }
+                        else{
+                            batTopGoX = (float) coordX;
+                            batTopGoY = (float) coordY;
+                        }
                     }
                     ab++;
                 }
